@@ -1,13 +1,13 @@
 # Course Management System API
 
-## 📌 Project Description
+## Project Description
 
 This project is an ASP.NET Core Web API for managing courses, instructors, and students.
 It demonstrates backend development concepts including database relationships, authentication, authorization, DTO usage, and optimized data querying.
 
 ---
 
-## 🚀 Technologies Used
+## Technologies Used
 
 * **ASP.NET Core Web API**
   Framework used to build RESTful APIs.
