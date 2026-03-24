@@ -1,30 +1,207 @@
-# Course Management API
+# Course Management System API
 
-## Technologies Used
+## 📌 Project Description
 
-- ASP.NET Core Web API: Backend framework for building RESTful APIs
-- Entity Framework Core: ORM for database operations
-- SQL Server: Database management system
-- JWT Authentication: Secure user authentication
-- Swagger: API documentation and testing tool
+This project is an ASP.NET Core Web API for managing courses, instructors, and students.
+It demonstrates backend development concepts including database relationships, authentication, authorization, DTO usage, and optimized data querying.
 
-## How to Run
+---
 
-1. Run migrations:
-   dotnet ef database update
+## 🚀 Technologies Used
 
-2. Run project:
-   dotnet run
+* **ASP.NET Core Web API**
+  Framework used to build RESTful APIs.
+
+* **Entity Framework Core**
+  ORM used to interact with SQL Server database.
+
+* **SQL Server (LocalDB)**
+  Database used to store application data.
+
+* **JWT Authentication**
+  Used to securely authenticate users and protect API endpoints.
+
+* **Swagger (Swashbuckle)**
+  Used to document and test API endpoints.
+
+---
+
+##  System Architecture
+
+The project follows a clean architecture:
+
+* **Controllers** → Handle HTTP requests
+* **Services** → Business logic layer
+* **Models** → Database entities
+* **DTOs** → Data transfer objects (for requests & responses)
+* **DbContext** → Database connection
+
+---
+
+##  Entity Relationships
+
+* **One-to-One**
+  Instructor ↔ InstructorProfile
+
+* **One-to-Many**
+  Instructor → Courses
+
+* **Many-to-Many**
+  Student ↔ Course (via Enrollment)
+
+---
+
+##  Authentication & Authorization
+
+* Users log in using:
+
+  ```
+  POST /api/Auth/login
+  ```
+
+* A **JWT token** is returned.
+
+* This token must be sent in the request header:
+
+  ```
+  Authorization: Bearer YOUR_TOKEN
+  ```
+
+* Role-based authorization is implemented:
+
+  * Admin → Can create/update courses
+  * Other users → Limited access
+
+---
+
+##  DTO Usage
+
+DTOs are used to:
+
+* Control data sent/received
+* Improve security
+* Prevent exposing full database models
+
+Types used:
+
+* Create DTO
+* Update DTO
+* Read DTO
+
+---
+
+##  Validation
+
+Data validation is implemented using Data Annotations:
+
+* `[Required]`
+* `[MaxLength]`
+* `[Range]`
+
+Invalid requests return **HTTP 400 Bad Request**.
+
+---
+
+##  LINQ Optimization
+
+* Used `.Select()` to return only required data
+* Avoided returning full entities
+
+---
+
+## AsNoTracking
+
+* Used `.AsNoTracking()` for read-only queries
+* Improves performance by disabling tracking
+
+---
+
+##  How to Run the Project
+
+1. Open terminal in project folder
+2. Run:
+
+```
+dotnet restore
+dotnet ef database update
+dotnet run
+```
 
 3. Open Swagger:
-   https://localhost:xxxx/swagger
 
-## Authentication
+```
+https://localhost:XXXX/swagger
+```
 
-Use:
-- Username: admin
-- Password: 123
+---
 
-## Why HTTP-only Cookies?
+##  API Endpoints
 
-HTTP-only cookies are used because they prevent JavaScript access, protecting authentication tokens from XSS attacks and improving security.
+###  Authentication
+
+* `POST /api/Auth/login`
+
+### Courses
+
+* `GET /api/Course`
+* `POST /api/Course` (Admin only)
+* `PUT /api/Course/{id}` (Admin only)
+
+### Instructor
+
+* `GET /api/Instructor`
+* `POST /api/Instructor`
+
+### Student
+
+* `GET /api/Student`
+
+---
+
+## Why HTTP-Only Cookies Are Important
+
+HTTP-only cookies are commonly used in authentication because:
+
+* They **cannot be accessed by JavaScript**
+* Protect against **XSS (Cross-Site Scripting) attacks**
+* Automatically sent with every request
+* Improve security compared to storing tokens in local storage
+
+Although this project uses JWT in headers, HTTP-only cookies are widely used in industry for better security.
+
+---
+
+## Screenshots
+
+The project includes screenshots showing:
+
+* Swagger UI
+* Login request (JWT token)
+* Authorized requests
+* Creating instructor
+* Creating course
+
+---
+
+##  AI Usage
+
+AI tools were used to:
+
+* Assist with debugging
+
+
+Screenshots of AI interaction are included as required in Chat Folder.
+
+---
+
+##  Conclusion
+
+This project successfully demonstrates:
+
+* Secure API development
+* Clean architecture
+* Database relationships
+* Authentication & authorization
+* Performance optimization
+
+---
